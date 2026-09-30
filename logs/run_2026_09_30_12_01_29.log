@@ -1,0 +1,19 @@
+2026-09-30 12:01:31,894 | INFO | Opening login page
+2026-09-30 12:01:35,362 | INFO | Submitted login form
+2026-09-30 12:01:37,294 | INFO | Login successful, dashboard loaded
+2026-09-30 12:01:40,496 | INFO | Screenshot saved: /Users/nividata/Dashboard automation/screenshots/2026_09_30_12_01_29_after_login.png
+2026-09-30 12:01:40,497 | INFO | Navigating to PIM > Add Employee
+2026-09-30 12:01:41,657 | INFO | Add Employee form loaded
+2026-09-30 12:01:44,778 | INFO | Screenshot saved: /Users/nividata/Dashboard automation/screenshots/2026_09_30_12_01_29_before_add.png
+2026-09-30 12:01:44,778 | INFO | Filling employee form: Test30sep 30sep2026 (ID )
+2026-09-30 12:01:47,923 | INFO | Submitted Add Employee form
+2026-09-30 12:01:52,316 | INFO | Employee saved — redirected to Personal Details page
+2026-09-30 12:01:52,316 | INFO | Verifying employee name appears on the Personal Details page
+2026-09-30 12:01:53,681 | INFO | Verified: 'Test30sep 30sep2026' is shown on the employee page
+2026-09-30 12:01:56,822 | INFO | Screenshot saved: /Users/nividata/Dashboard automation/screenshots/2026_09_30_12_01_29_after_add.png
+2026-09-30 12:01:56,823 | INFO | Navigating to Employee List to extract data
+2026-09-30 12:01:59,096 | INFO | Found 50 employee rows
+2026-09-30 12:01:59,710 | INFO | Exported 20 rows to /Users/nividata/Dashboard automation/exports/employees_2026_09_30_12_01_29.csv
+2026-09-30 12:01:59,710 | INFO | Logging out
+2026-09-30 12:02:00,968 | INFO | Logged out successfully
+2026-09-30 12:02:01,196 | INFO | Browser closed

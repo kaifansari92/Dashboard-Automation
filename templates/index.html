@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OrangeHRM Automation Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>OrangeHRM Dashboard Automation</h1>
+    <p class="subtitle">Enter credentials and employee details, then submit to run the Selenium automation.</p>
+
+    <form method="post" action="{{ url_for('run_automation') }}" class="card">
+      <fieldset>
+        <legend>Login Credentials</legend>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Admin" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="admin123" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>Employee Details</legend>
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <label for="employee_id">Employee ID (optional — overrides auto-generated ID)</label>
+        <input type="text" id="employee_id" name="employee_id">
+      </fieldset>
+
+      <label class="checkbox-row">
+        <input type="checkbox" name="headless">
+        Run headless (don't show the browser window)
+      </label>
+
+      <button type="submit">Run Automation</button>
+    </form>
+
+    {% if result %}
+    <div class="card result {{ 'success' if result.status == 'success' else 'error' }}">
+      <h2>Run Result — {{ result.status | upper }}</h2>
+      <p>{{ result.message }}</p>
+
+      <h3>Submitted Employee</h3>
+      <ul>
+        <li><strong>First Name:</strong> {{ result.employee.first_name }}</li>
+        <li><strong>Last Name:</strong> {{ result.employee.last_name }}</li>
+        <li><strong>Employee ID:</strong> {{ result.employee.employee_id or "(auto-generated)" }}</li>
+        {% if result.verified_name %}
+        <li><strong>Verified on page as:</strong> {{ result.verified_name }}</li>
+        {% endif %}
+      </ul>
+
+      <p class="meta">
+        Run ID: {{ result.run_id }} &middot; Log file: {{ result.log_path }}
+        {% if result.csv_path %} &middot; CSV export: {{ result.csv_path }}{% endif %}
+      </p>
+
+      {% if result.table_data %}
+      <h3>Extracted Employee List ({{ result.table_data | length }} rows)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Employee ID</th><th>First Name</th><th>Middle Name</th><th>Last Name</th></tr>
+          </thead>
+          <tbody>
+            {% for row in result.table_data %}
+            <tr>
+              <td>{{ row.employee_id }}</td>
+              <td>{{ row.first_name }}</td>
+              <td>{{ row.middle_name }}</td>
+              <td>{{ row.last_name }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
