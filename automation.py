@@ -54,8 +54,6 @@ def _get_driver(headless=False):
     options = Options()
     if headless:
         options.add_argument("--headless=new")
-    options.add_argument("--window-size=1400,1000")
-    options.add_argument("--disable-notifications")
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
@@ -79,8 +77,7 @@ def login(driver, wait, username, password, logger):
     logger.info("Opening login page")
     driver.get(LOGIN_URL)
 
-    
-    username_field = wait.until(EC.presence_of_element_located((By.NAME, "username")))
+    username_field = driver.find_element(By.NAME, "username")
     password_field = driver.find_element(By.NAME, "password")
 
     username_field.clear()
@@ -205,7 +202,7 @@ def export_to_csv(data, run_id, logger):
     return csv_path
 
 
-def logout(driver, wait, logger):
+def logout(wait, logger):
     logger.info("Logging out")
     user_dropdown = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".oxd-userdropdown-tab")))
     user_dropdown.click()
@@ -265,7 +262,7 @@ def run_orangehrm_flow(username, password, first_name, last_name, employee_id, h
         result["table_data"] = table_data
         result["csv_path"] = export_to_csv(table_data, run_id, logger)
 
-        logout(driver, wait, logger)
+        logout(wait, logger)
 
         result["status"] = "success"
         result["message"] = f"Employee '{verified_name}' created and verified successfully."
