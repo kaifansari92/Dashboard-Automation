@@ -18,8 +18,12 @@ def index():
     return render_template("index.html", result=None)
 
 
-@app.route("/run-automation", methods=["POST"])
+@app.route("/run-automation", methods=["GET", "POST"])
 def run_automation():
+
+    if request.method == "GET":
+        return render_template("index.html", result=None)
+
     username = request.form.get("username", "").strip()
     password = request.form.get("password", "")
     first_name = request.form.get("first_name", "").strip()
